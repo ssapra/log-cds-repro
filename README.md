@@ -1,6 +1,11 @@
 ## Reproducing bug with logging the DOM 
 
 Use node 16 and run tests.
+```bash
+nvm use lts/fermium
+npm install
+npm test
+```
 
 Sometimes Node runs out of memory:
 ```
