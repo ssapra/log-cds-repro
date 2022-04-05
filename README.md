@@ -1,46 +1,61 @@
-# Getting Started with Create React App
+## Reproducing bug with logging the DOM 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Use node 16 and run tests.
 
-## Available Scripts
+Sometimes Node runs out of memory:
+```
+FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory
+ 1: 0x10d716a25 node::Abort() (.cold.1) [/Users/shsapra/.nvm/versions/node/v16.14.2/bin/node]
+ 2: 0x10c40c0f9 node::Abort() [/Users/shsapra/.nvm/versions/node/v16.14.2/bin/node]
+ 3: 0x10c40c26f node::OnFatalError(char const*, char const*) [/Users/shsapra/.nvm/versions/node/v16.14.2/bin/node]
+ 4: 0x10c58d7e7 v8::Utils::ReportOOMFailure(v8::internal::Isolate*, char const*, bool) [/Users/shsapra/.nvm/versions/node/v16.14.2/bin/node]
+ 5: 0x10c58d783 v8::internal::V8::FatalProcessOutOfMemory(v8::internal::Isolate*, char const*, bool) [/Users/shsapra/.nvm/versions/node/v16.14.2/bin/node]
+ 6: 0x10c72ee65 v8::internal::Heap::FatalProcessOutOfMemory(char const*) [/Users/shsapra/.nvm/versions/node/v16.14.2/bin/node]
+...
+```
 
-In the project directory, you can run:
+Other times it will fail as expected but prints an exorbitant amount of lines in the DOM:
+```
+ TestingLibraryElementError: Unable to find an accessible element with the role "textbox" and name "not-the-right-name"
 
-### `npm start`
+    Here are the accessible roles:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+      textbox:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+      Name "Name":
+      <input
+        id="name"
+        name="name"
+        type="text"
+      />
 
-### `npm test`
+      Name "Another Input":
+      <input
+        id="second-input"
+        name="name"
+        type="text"
+      />
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+      --------------------------------------------------
 
-### `npm run build`
+    Ignored nodes: comments, <script />, <style />
+    <body
+      cds-supports="js no-flex-gap"
+      cds-version="5.6.4"
+    >
+      <div>
+        Object {
+          "_$AL": Map {
+            "status" => undefined,
+            "controlWidth" => undefined,
+            "validate" => undefined,
+            "responsive" => undefined,
+            "focused" => undefined,
+            "disabled" => undefined,
+            "readonly" => undefined,
+            "fixedControlWidth" => undefined,
+            "supportsPrefixSuffixActions" => undefined,
+            "labelLayout" => undefined,
+          },
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
